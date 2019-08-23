@@ -5,6 +5,7 @@ import com.ease.archiecture.framework.RemoteRegister;
 import com.ease.archiecture.framework.URL;
 import com.ease.archiecture.http.HttpServer;
 import com.ease.archiecture.impl.HelloServiceImpl;
+import com.ease.archiecture.netty.NettyServer;
 
 /**
  * @author wei.jiang
@@ -12,7 +13,7 @@ import com.ease.archiecture.impl.HelloServiceImpl;
  */
 public class Provider {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //1.本地注册
         //{服务名：实现类}
         System.out.println(HelloService.class.getName()+"========"+ HelloServiceImpl.class);
@@ -24,7 +25,7 @@ public class Provider {
         RemoteRegister.register(HelloService.class.getName(), url);
 
         //3.启动tomcat
-        HttpServer httpServer = new HttpServer();
+        NettyServer httpServer = new NettyServer();
         httpServer.start("localhost", 8080);
     }
 }
