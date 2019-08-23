@@ -1,5 +1,6 @@
 package com.ease.archiecture.http;
 
+import com.ease.archiecture.framework.LocalRegister;
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ServletInputStream;
@@ -20,7 +21,7 @@ public class HttpServletHandler {
             ObjectInputStream ois = new ObjectInputStream(inputStream);
 
             Invocation invocation = (Invocation) ois.readObject();
-            Class implClass = Class.forName(invocation.getInterfaceName());
+            Class implClass = LocalRegister.get(invocation.getInterfaceName());
             Method method = implClass.getMethod(invocation.getMethodName(), invocation.getParamTypes());
             String result = (String) method.invoke(implClass.newInstance(), invocation.getParams());
             IOUtils.write(result, resp.getOutputStream(), "utf-8");
