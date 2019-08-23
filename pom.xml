@@ -12,6 +12,7 @@
         <module>rpc-consumer</module>
         <module>rpc-provider</module>
         <module>rpc-common</module>
+        <module>java-spi</module>
     </modules>
 
     <properties>
