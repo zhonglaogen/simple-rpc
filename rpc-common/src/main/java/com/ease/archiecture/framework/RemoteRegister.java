@@ -21,8 +21,12 @@ public class RemoteRegister {
     public static URL get(String interfaceName) {
         RedisCommands<String, String> commands = RedisUtil.getRedisConnection();
         List<String> urlList = commands.lrange(interfaceName, 0, -1);
-        List<URL> currentUrls = urlList.stream().map(e -> JSON.parseObject(e, URL.class)).collect(Collectors.toList());
+        List<URL> currentUrls = urlList
+                .stream()
+                .map(e -> JSON.parseObject(e, URL.class))
+                .collect(Collectors.toList());
         Collections.shuffle(currentUrls);
+        //负载均衡算法
         return currentUrls.get(0);
     }
 }

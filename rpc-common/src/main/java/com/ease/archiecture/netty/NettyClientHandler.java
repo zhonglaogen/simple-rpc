@@ -2,6 +2,8 @@ package com.ease.archiecture.netty;
 
 import com.ease.archiecture.http.Invocation;
 import io.netty.channel.*;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
@@ -35,6 +37,12 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter implements 
     public Object call() {
         final CountDownLatch latch = new CountDownLatch(1);
         channel.writeAndFlush(this.invocation).addListener((ChannelFutureListener) channelFuture -> latch.countDown());
+//        channel.writeAndFlush(this.invocation).addListener(new GenericFutureListener<Future<? super Void>>() {
+//            @Override
+//            public void operationComplete(Future<? super Void> future) throws Exception {
+//
+//            }
+//        })
         try {
             latch.await();
         } catch (InterruptedException e) {

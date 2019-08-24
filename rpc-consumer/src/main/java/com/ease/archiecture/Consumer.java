@@ -9,6 +9,8 @@ public class Consumer {
 
         HelloService helloService = ProxyFactory.getProxy(HelloService.class);
         System.out.println(helloService.sayHello("abc"));
+//        HttpClient httpClient=new HttpClient();
+//        httpClient.send("localhost",8080, new Invocation());
 
     }
 }
